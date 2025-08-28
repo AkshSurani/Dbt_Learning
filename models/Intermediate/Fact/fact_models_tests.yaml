@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: fact_lineitem
+    description: "Fact table for line items in orders"
+    columns:
+      - name: order_id
+        description: "FK to fact_orders.order_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+      - name: part_id
+        description: "FK to dim_part.part_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_part')
+              field: part_id
+      - name: supplier_id
+        description: "FK to dim_supplier.supplier_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_id
+
+    # check uniqueness automatically without storing that key, by using multi-column tests in YAML.
+    # tests:  # 👈 model-level tests
+      # - unique:
+      #     column_name: 
+      #       - order_id
+      #       - part_id
+      #       - supplier_id
+      #       - line_number   # include this for true uniqueness
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_id
+            - part_id
+            - supplier_id
+            - line_number
+
+      - not_null:
+          column_name: 
+            - order_id
+            - part_id
+            - supplier_id
+            - line_number
+
+  - name: fact_orders
+    description: "Fact table of orders placed by customers"
+    columns:
+      - name: order_id
+        description: "Primary key for orders"
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "FK to dim_customer.customer_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+
+  - name: bridge_partsupp
+    description: "Bridge table between parts and suppliers"
+    columns:
+      - name: part_id
+        description: "FK to dim_part.part_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_part')
+              field: part_id
+      - name: supplier_id
+        description: "FK to dim_supplier.supplier_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_id
+              
+    tests:  # 👈 model-level composite key tests
+      - unique:
+          column_name:
+            - part_id
+            - supplier_id
+      - not_null:
+          column_name:
+            - part_id
+            - supplier_id
