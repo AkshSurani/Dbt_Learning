@@ -1,0 +1,12 @@
+packages:
+  # Core utility macros (includes unique_combination_of_columns, surrogate_key, etc.)
+  - package: dbt-labs/dbt_utils
+    version: [">=1.1.1", "<2.0.0"]
+
+  # (Optional) Helpful for testing data freshness, row counts, etc.
+  - package: calogica/dbt_expectations
+    version: [">=0.8.0", "<1.0.0"]
+
+  # (Optional) Good for Snowflake users — provides macros for optimization, metadata, etc.
+  - package: dbt-labs/dbt_external_tables
+    version: [">=0.10.0", "<1.0.0"]

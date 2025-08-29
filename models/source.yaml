@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: SF1_RAW  # Source name for TPCH dataset
+    database: TPCH
+    schema: sf1_raw
+    tables:
+      
+      - name: customer
+      - name: lineitem
+      - name: nation
+      - name: orders
+      - name: part
+      - name: partsupp
+      - name: region
+      - name: supplier

@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer dimension with details about customer and their nation"
+    columns:
+      - name: customer_id
+        description: "Primary key for customer"
+        tests:
+          - not_null
+          - unique
+      - name: nation_id
+        description: "FK to dim_nation.nation_id"
+        tests:
+          - relationships:
+              to: ref('dim_nation')
+              field: nation_id
+
+  - name: dim_nation
+    description: "Nation dimension mapping to regions"
+    columns:
+      - name: nation_id
+        description: "Primary key for nation"
+        tests:
+          - not_null
+          - unique
+      - name: region_id
+        description: "FK to dim_region.region_id"
+        tests:
+          - relationships:
+              to: ref('dim_region')
+              field: region_id
+
+  - name: dim_part
+    description: "Part dimension with manufacturer, type, brand details"
+    columns:
+      - name: part_id
+        description: "Primary key for part"
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_region
+    description: "Region dimension"
+    columns:
+      - name: region_id
+        description: "Primary key for region"
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_supplier
+    description: "Supplier dimension linked to nations"
+    columns:
+      - name: supplier_id
+        description: "Primary key for supplier"
+        tests:
+          - not_null
+          - unique
+      - name: nation_id
+        description: "FK to dim_nation.nation_id"
+        tests:
+          - relationships:
+              to: ref('dim_nation')
+              field: nation_id
+      

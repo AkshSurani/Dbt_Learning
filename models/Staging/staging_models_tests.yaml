@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: stg_customer
+    tests:
+      - unique:
+          column_name: customer_id
+      - not_null:
+          column_name: customer_id
+
+  - name: stg_lineitem
+    tests:
+      - unique:
+          column_name: lineitem_id
+      - not_null:
+          column_name: lineitem_id
+      - not_null:
+          column_name: part_id
+      - not_null:
+          column_name: supplier_id
+
+  - name: stg_nation
+    tests:
+      - unique:
+          column_name: nation_id
+      - not_null:
+          column_name: nation_id
+
+  - name: stg_orders
+    tests:
+      - unique:
+          column_name: order_id
+      - not_null:
+          column_name: order_id
+      - not_null:
+          column_name: customer_id
+
+  - name: stg_part
+    tests:
+      - unique:
+          column_name: part_id
+      - not_null:
+          column_name: part_id
+
+  - name: stg_partsupp
+    tests:
+      - unique:
+          column_name: partsupp_id
+      - not_null:
+          column_name: part_id
+      - not_null:
+          column_name: supplier_id
+
+  - name: stg_region
+    tests:
+      - unique:
+          column_name: region_id
+      - not_null:
+          column_name: region_id
+
+  - name: stg_supplier
+    tests:
+      - unique:
+          column_name: supplier_id
+      - not_null:
+          column_name: supplier_id
+
