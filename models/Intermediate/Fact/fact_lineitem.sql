@@ -1,3 +1,8 @@
+{{ config(
+    materialized='incremental',
+    unique_key=['order_id', 'line_number', 'part_id', 'supplier_id']
+) }}
+
 WITH lineitem AS (
     SELECT * FROM {{ ref('Stg_lineitem') }}
 )
@@ -19,6 +24,12 @@ SELECT
     ship_mode,
     LINE_COMMENT
 FROM lineitem
+
+{% if is_incremental() %}
+  -- only insert new or updated rows
+  WHERE (order_id, line_number, part_id, supplier_id) 
+        NOT IN (SELECT order_id, line_number, part_id, supplier_id FROM {{ this }})
+{% endif %}
 
 {# with lineitem as (
   select * from {{ ref('Stg_lineitem') }}

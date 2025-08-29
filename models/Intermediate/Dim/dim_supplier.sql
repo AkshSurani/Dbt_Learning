@@ -1,9 +1,10 @@
 WITH partsupp AS 
-( SELECT * FROM {{ ref('Stg_partsupp') }} ) 
+( SELECT * FROM {{ ref('Stg_supplier') }} ) 
 SELECT    
-    part_id, 
     supplier_id, 
-    available_qty, 
-    supply_cost,
-    PARTSUPP_COMMENT 
+    SUPPLIER_NAME,
+    nation_id,
+    SUPPLIER_PHONE, 
+    ACCOUNT_BALANCE,
+    SUPPLIER_COMMENT 
 FROM partsupp

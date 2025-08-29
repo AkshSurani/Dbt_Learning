@@ -124,3 +124,14 @@ models:
 
     # Catch-all for any other folder
     +materialized: view
+
+
+seeds:
+  SPCH_SF1:          # your project name
+    region:
+      file: "region.csv"
+      header: true
+      delimiter: ","
+      quote: '"'
+      schema: STAGING
+

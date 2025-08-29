@@ -2,7 +2,8 @@ WITH supplier_revenue AS (
     SELECT
         li.supplier_id,  -- Use table alias to specify supplier_id clearly
         li.ship_date,
-        SUM(li.extended_price * (1 - li.discount)) AS total_revenue  -- Calculate total revenue
+        SUM({{ net_revenue('extended_price', 'discount') }}) AS total_revenue
+ -- Calculate total revenue
     FROM {{ ref('fact_lineitem') }} li  -- Reference fact_lineitem table
     GROUP BY li.supplier_id, li.ship_date  -- Grouping by supplier_id and ship_date
 ),

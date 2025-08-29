@@ -1,3 +1,8 @@
+{{ config(
+    materialized='incremental',
+    unique_key='order_id'
+) }}
+
 WITH orders AS (
     SELECT * FROM {{ ref('Stg_orders') }}
 )
@@ -13,3 +18,7 @@ SELECT
     ORDER_COMMENT
     
 FROM orders
+
+{% if is_incremental() %}
+  WHERE order_id NOT IN (SELECT order_id FROM {{ this }})
+{% endif %}
