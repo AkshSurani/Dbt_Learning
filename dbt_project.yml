@@ -80,20 +80,23 @@
 
 
 
-
-
-
-
 name: 'SPCH_SF1'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
+# ------------------------------
+# Project Metadata
+# ------------------------------
+# This is the main dbt project file.
+# It defines how dbt should treat models, seeds, snapshots, and other resources.
+# Modify "profile" to point to your dbt profile (connection details in profiles.yml).
+
 profile: 'default'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+# ------------------------------
+# Project File Paths
+# ------------------------------
+# These tell dbt where to look for SQL models, macros, seeds, snapshots, etc.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -101,37 +104,58 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+# ------------------------------
+# Build & Clean Settings
+# ------------------------------
+target-path: "target"     # compiled SQL files will be written here
+clean-targets:            # folders removed when you run `dbt clean`
   - "target"
   - "dbt_packages"
 
+# ------------------------------
+# Model Materialization Strategy
+# ------------------------------
+# Define how dbt models should be built depending on their folder.
+# - Staging models → Views (lightweight, no storage overhead)
+# - Intermediate models → Tables (used for transformations/joins)
+# - Dimensions / Facts → Tables (core DW structures)
+# - Analytics → Incremental (large aggregations refreshed incrementally)
+# - Default (any folder not matched) → Views
+# ------------------------------
 models:
   SPCH_SF1:
 
     staging:
       +materialized: view
+      +schema: staging    # optional schema override
 
     Intermediate:
       +materialized: table
       dim:
         +materialized: table
+        +schema: dim
       fact:
         +materialized: table
+        +schema: fact
 
     Analytics:
       +materialized: incremental
+      +schema: analytics
 
-    # Catch-all for any other folder
+    # Default / catch-all
     +materialized: view
 
-
+# ------------------------------
+# Seed Configurations
+# ------------------------------
+# Seeds are CSVs that dbt loads into the warehouse as tables.
+# Example: seeds/region.csv will become STAGING.region
+# ------------------------------
 seeds:
-  SPCH_SF1:          # your project name
+  SPCH_SF1:
     region:
       file: "region.csv"
       header: true
       delimiter: ","
       quote: '"'
-      schema: STAGING
-
+      schema: staging   # load seed into staging schema
