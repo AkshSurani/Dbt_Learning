@@ -1,3 +1,5 @@
+-- Average number of days between consecutive shipments, indicating shipping efficiency--
+
 WITH shipping_times AS (
     SELECT
         order_id,

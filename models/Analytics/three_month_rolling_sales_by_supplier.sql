@@ -1,3 +1,5 @@
+-- Top 10 suppliers by 3-month rolling revenue to monitor consistent performance trends
+
 WITH supplier_revenue AS (
     SELECT
         li.supplier_id,  -- Use table alias to specify supplier_id clearly

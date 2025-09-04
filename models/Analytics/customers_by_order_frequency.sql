@@ -1,3 +1,5 @@
+-- Identifies the top 10 customers by number of orders placed
+
 WITH customer_orders AS (
     SELECT
         customer_id,

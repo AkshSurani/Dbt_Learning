@@ -1,3 +1,5 @@
+-- Calculates annual revenue and year-over-year growth to monitor business performance trends
+
 WITH yearly_revenue AS (
     SELECT
         YEAR(ship_date) AS year,

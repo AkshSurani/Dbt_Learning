@@ -3,7 +3,7 @@ WITH lineitem AS (
 )
 
 SELECT
-    TRY_CAST(L_ORDERKEY AS INT ) AS order_id,
+    TRY_CAST(L_ORDERKEY AS INT) AS order_id,
     TRY_CAST(L_PARTKEY AS INT ) AS part_id,
     TRY_CAST(L_SUPPKEY AS INT) AS supplier_id,
     TRY_CAST(L_LINENUMBER AS INT) AS line_number,

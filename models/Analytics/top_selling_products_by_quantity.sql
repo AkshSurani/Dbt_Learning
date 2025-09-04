@@ -1,3 +1,5 @@
+-- Identifies the top 10 products by total quantity sold to highlight best-sellers
+
 WITH product_sales AS (
     SELECT
         part_id,

@@ -1,3 +1,5 @@
+-- Calculates Customer Lifetime Value (CLV) and average order value per customer--
+
 WITH customer_orders AS (
     SELECT
         customer_id,

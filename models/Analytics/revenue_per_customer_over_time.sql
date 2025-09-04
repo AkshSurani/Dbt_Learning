@@ -1,3 +1,5 @@
+-- Tracks cumulative revenue per customer over time to monitor growth and lifetime value
+
 WITH customer_revenue AS (
     SELECT
         customer_id,
