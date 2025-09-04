@@ -1,3 +1,6 @@
+-- Top 10 suppliers ranked by total profit to identify the most profitable partners
+
+
 WITH supplier_profit AS (
     SELECT
         li.supplier_id,  -- Specify the alias to remove ambiguity

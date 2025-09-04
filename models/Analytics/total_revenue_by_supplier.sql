@@ -1,3 +1,5 @@
+-- Calculates total revenue per supplier to evaluate supplier performance
+
 WITH revenue_summary AS (
     SELECT
         supplier_id,

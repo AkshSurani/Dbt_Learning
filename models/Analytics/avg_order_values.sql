@@ -1,3 +1,5 @@
+-- Calculate customer spend summary and average order value
+
 WITH order_summary AS (
     SELECT
         customer_id,

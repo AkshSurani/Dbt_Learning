@@ -1,3 +1,5 @@
+-- Calculates total sales revenue per product to identify top-revenue generating items
+
 WITH part_sales AS (
     SELECT
         part_id,
