@@ -26,14 +26,7 @@ models:
               to: ref('dim_supplier')
               field: supplier_id
 
-    # check uniqueness automatically without storing that key, by using multi-column tests in YAML.
-    # tests:  # 👈 model-level tests
-      # - unique:
-      #     column_name: 
-      #       - order_id
-      #       - part_id
-      #       - supplier_id
-      #       - line_number   # include this for true uniqueness
+
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -83,7 +76,7 @@ models:
               to: ref('dim_supplier')
               field: supplier_id
               
-    tests:  # 👈 model-level composite key tests
+    tests: 
       - unique:
           column_name:
             - part_id

@@ -80,22 +80,18 @@
 
 
 
-name: 'SPCH_SF1'
+name: 'TPCH_SF1'
 version: '1.0.0'
 config-version: 2
 
-# ------------------------------
-# Project Metadata
-# ------------------------------
 # This is the main dbt project file.
 # It defines how dbt should treat models, seeds, snapshots, and other resources.
 # Modify "profile" to point to your dbt profile (connection details in profiles.yml).
 
 profile: 'default'
 
-# ------------------------------
-# Project File Paths
-# ------------------------------
+
+
 # These tell dbt where to look for SQL models, macros, seeds, snapshots, etc.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -105,26 +101,20 @@ macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 docs-paths: ["docs"]
 
-# ------------------------------
+
 # Build & Clean Settings
-# ------------------------------
+
 target-path: "target"     # compiled SQL files will be written here
 clean-targets:            # folders removed when you run `dbt clean`
   - "target"
   - "dbt_packages"
 
-# ------------------------------
+
 # Model Materialization Strategy
-# ------------------------------
 # Define how dbt models should be built depending on their folder.
-# - Staging models → Views (lightweight, no storage overhead)
-# - Intermediate models → Tables (used for transformations/joins)
-# - Dimensions / Facts → Tables (core DW structures)
-# - Analytics → Incremental (large aggregations refreshed incrementally)
-# - Default (any folder not matched) → Views
-# ------------------------------
+
 models:
-  SPCH_SF1:
+  TPCH_SF1:
 
     staging:
       +materialized: view
@@ -140,26 +130,18 @@ models:
         # +schema: fact
 
     Analytics:
-      +materialized: incremental
+      +materialized: table
       # +schema: analytics
 
     # Default / catch-all
-    +materialized: view
+    # +materialized: view
 
-# ------------------------------
 # Seed Configurations
-# ------------------------------
-# Seeds are CSVs that dbt loads into the warehouse as tables.
-# Example: seeds/region.csv will become STAGING.region
-# ------------------------------
 seeds:
-  SPCH_SF1:
+  TPCH_SF1:
     region:
-      file: "region.csv"
+      +schema: STAGING
       header: true
       delimiter: ","
       quote: '"'
-      schema: staging   # load seed into staging schema
-
-
 

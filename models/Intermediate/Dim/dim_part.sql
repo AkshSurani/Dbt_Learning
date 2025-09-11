@@ -10,6 +10,7 @@ SELECT
     part_size,
     container,
     retail_price,
-    PART_COMMENT
+    PART_COMMENT,
+    CONVERT_TIMEZONE('UTC', 'Asia/Kolkata', CURRENT_TIMESTAMP()) AS row_inserted_at_ist
 FROM part
 

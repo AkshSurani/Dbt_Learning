@@ -6,5 +6,6 @@ SELECT
     nation_id,
     SUPPLIER_PHONE, 
     ACCOUNT_BALANCE,
-    SUPPLIER_COMMENT 
+    SUPPLIER_COMMENT,
+    CONVERT_TIMEZONE('UTC', 'Asia/Kolkata', CURRENT_TIMESTAMP()) AS row_inserted_at_ist
 FROM partsupp

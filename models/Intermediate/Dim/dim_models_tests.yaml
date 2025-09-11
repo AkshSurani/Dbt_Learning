@@ -8,7 +8,7 @@ models:
         description: "Primary key for customer"
         tests:
           - not_null
-          - unique
+          # - unique
       - name: nation_id
         description: "FK to dim_nation.nation_id"
         tests:

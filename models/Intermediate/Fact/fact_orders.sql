@@ -15,7 +15,8 @@ SELECT
     order_priority,
     clerk,
     ship_priority,
-    ORDER_COMMENT
+    ORDER_COMMENT,
+    CONVERT_TIMEZONE('UTC', 'Asia/Kolkata', CURRENT_TIMESTAMP()) AS row_inserted_at_ist
     
 FROM orders
 

@@ -22,7 +22,8 @@ SELECT
     receipt_date,
     ship_instruct,
     ship_mode,
-    LINE_COMMENT
+    LINE_COMMENT,
+    CONVERT_TIMEZONE('UTC', 'Asia/Kolkata', CURRENT_TIMESTAMP()) AS row_inserted_at_ist
 FROM lineitem
 
 {% if is_incremental() %}
